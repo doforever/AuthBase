@@ -8,6 +8,11 @@ const passportConfig = require('./config/passport');
 
 const app = express();
 
+app.use((req, res, next) => {
+  req.app = app;
+  next();
+});
+
 app.use(session({ secret: process.env.sessionSecret }));
 app.use(passport.initialize());
 app.use(passport.session());

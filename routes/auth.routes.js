@@ -7,8 +7,15 @@ router.get('/google',
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/user/no-permission' }),
   (req, res) => {
+    req.app.locals.isLoggedIn = !!req.user;
     res.redirect('/user/logged');
   }
 );
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.app.locals.isLoggedIn = false;
+  res.redirect('/');
+});
 
 module.exports = router;
