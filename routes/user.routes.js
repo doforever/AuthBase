@@ -10,7 +10,8 @@ const isLogged = (req, res, next) => {
 };
 
 router.get('/logged', isLogged, (req, res) => {
-  res.render('logged');
+  const { displayName, photos} = req.user;
+  res.render('logged', { name: displayName, avatar: photos[0].value});
 });
 
 router.get('/no-permission', (req, res) => {
@@ -22,7 +23,8 @@ router.get('/profile/settings', isLogged, (req, res) => {
 });
 
 router.get('/profile', isLogged, (req, res) => {
-  res.render('profile');
+  const { displayName, photos } = req.user;
+  res.render('profile', { name: displayName, avatar: photos[0].value });
 });
 
 
